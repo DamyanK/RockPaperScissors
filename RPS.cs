@@ -7,6 +7,7 @@ using System.IO;// helping with scoreboard
 
 namespace Rock_Paper_Scissors
 {
+
     class RPS
     {
         private string name { get; set; }
