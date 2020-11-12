@@ -12,3 +12,10 @@ D:\Desktop\RockPaperScissors\obj\Debug\Rock_Paper_Scissors.csprojAssemblyReferen
 D:\Desktop\RockPaperScissors\obj\Debug\Rock_Paper_Scissors.csproj.CoreCompileInputs.cache
 D:\Desktop\RockPaperScissors\obj\Debug\Rock_Paper_Scissors.exe
 D:\Desktop\RockPaperScissors\obj\Debug\Rock_Paper_Scissors.pdb
+C:\Users\user\RockPaperScissors\bin\Debug\Rock_Paper_Scissors.exe.config
+C:\Users\user\RockPaperScissors\bin\Debug\Rock_Paper_Scissors.exe
+C:\Users\user\RockPaperScissors\bin\Debug\Rock_Paper_Scissors.pdb
+C:\Users\user\RockPaperScissors\obj\Debug\Rock_Paper_Scissors.csprojAssemblyReference.cache
+C:\Users\user\RockPaperScissors\obj\Debug\Rock_Paper_Scissors.csproj.CoreCompileInputs.cache
+C:\Users\user\RockPaperScissors\obj\Debug\Rock_Paper_Scissors.exe
+C:\Users\user\RockPaperScissors\obj\Debug\Rock_Paper_Scissors.pdb

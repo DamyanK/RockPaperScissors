@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,19 +12,13 @@ namespace Rock_Paper_Scissors
         private static string name { get; set; }
         private static int playerScore { get; set; } = 0;
         private static int cpuScore { get; set; } = 0;
-        private static int playOrHelpCount { get; set; } = 0;
 
-        public static void PlayOrHelp()
+        private static void PlayOrHelp()
         {
             string playOrHelp;
 
             do
             {
-                if (playOrHelpCount != 0)
-                {
-                    break;
-                }
-
                 Console.Write("Play [p] \nHow to play? [h] \n> ");
                 playOrHelp = Console.ReadLine().ToLower();
                 Console.Clear();
@@ -39,12 +33,12 @@ namespace Rock_Paper_Scissors
                         "rock > scissors > paper > rock\n> ");
                     Console.ReadKey(true);
                     Console.Clear();
+                    break;
                 }
             } while (playOrHelp != "p" && playOrHelp != "h");
-            playOrHelpCount++;
         }
 
-        public static string PlayerChoice()
+        private static string PlayerChoice()
         {
             string playerChoice;// creatng the player's input
 
@@ -60,7 +54,7 @@ namespace Rock_Paper_Scissors
             return playerChoice;
         }
 
-        public static void Round()
+        private static void Round()
         {
             int cpuChoice;// creation of AI's choice
 
@@ -143,20 +137,21 @@ namespace Rock_Paper_Scissors
             Console.Clear();
         }
 
-        public static void PlayAgainAndScoreForTheRound()
+        private static void PlayAgainAndScoreForTheRound()
         {
             //char CharChoiceYesOrNo = ' ';
             // this is the "play_again_variable" creation ^
 
             string StringChoiceYesOrNo;// it is actually better to use string; i will explain later
-            // we will use this character later...
+                                       // we will use this character later...
 
             // the next do-while statement will be used to play the game once
             // then if the player chooses to play again, it will play again
 
+            PlayOrHelp();// 1)
+
             do// cycling once before asking for another try
             {
-                PlayOrHelp();// 1)
                 Round();// 2)                
 
                 do// Play Again
@@ -185,7 +180,7 @@ namespace Rock_Paper_Scissors
             //Play Again ^
         }
 
-        public static void SaveScoreOrNot()
+        private static Boolean SaveScoreOrNot()
         {
             string choiceSaveOrNah;
 
@@ -197,41 +192,51 @@ namespace Rock_Paper_Scissors
 
                 if (choiceSaveOrNah == "y")
                 {
-                    ScoreName();
-                    break;
+                    return true;
                 }
                 else if (choiceSaveOrNah == "n")
                 {
-                    break;
+                    return false;
                 }
             } while (choiceSaveOrNah != "y" || choiceSaveOrNah != "n");
+            return true;
         }
 
-        public static void ScoreName()
+        private static string ScoreName()
         {
-            do// validating the name which will save the highscore
+            if (SaveScoreOrNot())
             {
-                Console.Write("Enter a name please: \n*length from 3 up to 10 symbols*" +
-                    " \n> ");
-                name = Console.ReadLine();
-                Console.Clear();
-            } while (name.Length < 3 || name.Length > 10);
+                do// validating the name which will save the highscore
+                {
+                    Console.Write("Enter a name please: \n*length from 3 up to 10 symbols*" +
+                        " \n> ");
+                    name = Console.ReadLine();
+                    Console.Clear();
+                } while (name.Length < 3 || name.Length > 10);
+                return name;
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        public static void SetScore()
+        private static void SetScore()
         {
-            string score = name + " -> " + playerScore.ToString();
+            if (ScoreName() != null)
+            {
+                string score = name + " -> " + playerScore.ToString();
+                FileStream fs = new FileStream("score.txt", FileMode.Append);
+                StreamWriter sw = new StreamWriter(fs);
 
-            FileStream fs = new FileStream("score.txt", FileMode.Append);
-            StreamWriter sw = new StreamWriter(fs);
+                sw.WriteLine(score);
 
-            sw.WriteLine(score);
-
-            sw.Close();
-            fs.Close();
+                sw.Close();
+                fs.Close();
+            }
         }
 
-        public static void PrintScore()
+        private static void PrintScore()
         {
             Console.SetWindowSize(35, 13);
 
@@ -268,7 +273,7 @@ namespace Rock_Paper_Scissors
             ResetHighScores();
         }
 
-        public static void HighSocresAndExit()
+        private static void HighSocresAndExit()
         {
             string ScoreBoardOrExit;
 
@@ -285,7 +290,7 @@ namespace Rock_Paper_Scissors
             } while (ScoreBoardOrExit != "h" && ScoreBoardOrExit != "x");
         }
 
-        public static void DrawScoreBoard()
+        private static void DrawScoreBoard()
         {
             Console.SetWindowSize(35, 13);
 
@@ -320,7 +325,7 @@ namespace Rock_Paper_Scissors
             Console.BufferWidth = Console.WindowWidth;
         }
 
-        public static void ResetHighScores()
+        private static void ResetHighScores()
         {
             string resOrExit;
 
@@ -333,7 +338,6 @@ namespace Rock_Paper_Scissors
                 if (resOrExit == "r")
                 {
                     File.Delete("score.txt");
-                    DrawScoreBoard();
 
                     do
                     {
@@ -352,20 +356,11 @@ namespace Rock_Paper_Scissors
         public static void RockPaperScissors()// body of the game
         {
             PlayAgainAndScoreForTheRound();// Contains PlayOrHelp and Round
-            SaveScoreOrNot();
             SetScore();
             HighSocresAndExit();
 
             Console.WriteLine("Bye!");// 'n' = exit
             Console.ReadKey(true);
-            //Thread.Sleep(750);// slowing a bit instead of waiting ReadKey()
-        }
-
-        private static void todo()
-        {
-            // Check leaderboard not saving with names!
-            // Sort point asscending
-            // Check ToLower()
         }
     }
 }

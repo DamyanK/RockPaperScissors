@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using System.Threading;// with this we can slow the program a bit later
 
 namespace Rock_Paper_Scissors// Project planned and coded by Damyan Kushev
 {
