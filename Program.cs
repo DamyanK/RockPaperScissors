@@ -20,13 +20,6 @@ namespace Rock_Paper_Scissors// Project planned and coded by Damyan Kushev
             Console.Title = "ROCK, PAPER, SCISSORS";// changes title
         }
 
-        static void CreateClassInstance()
-        {
-            RPS rockPaperScissor = new RPS();
-
-            rockPaperScissor.RockPaperScissors();
-        }
-
         static void Main(string[] args)
         {
             //DON'T CODE UP HERE MATE!
@@ -34,7 +27,7 @@ namespace Rock_Paper_Scissors// Project planned and coded by Damyan Kushev
             //WRITE FROM NOW ON! 
 
             //RockPaperScissors();
-            CreateClassInstance();
+            RPS.RockPaperScissors();
         }
     }
 }
