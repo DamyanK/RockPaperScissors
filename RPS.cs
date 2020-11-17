@@ -139,11 +139,9 @@ namespace Rock_Paper_Scissors
 
         private static void PlayAgainAndScoreForTheRound()
         {
-            //char CharChoiceYesOrNo = ' ';
-            // this is the "play_again_variable" creation ^
-
-            string StringChoiceYesOrNo;// it is actually better to use string; i will explain later
-                                       // we will use this character later...
+            string StringChoiceYesOrNo;
+            // it is actually better to use string; i will explain later
+            // we will use this character later...
 
             // the next do-while statement will be used to play the game once
             // then if the player chooses to play again, it will play again
@@ -184,6 +182,7 @@ namespace Rock_Paper_Scissors
         {
             string choiceSaveOrNah;
 
+            // Check if the future procedure is supposed to happen
             do
             {
                 Console.Write("Save your score? [y/n] \n> ");
@@ -192,13 +191,16 @@ namespace Rock_Paper_Scissors
 
                 if (choiceSaveOrNah == "y")
                 {
+                    // If we enter yes, so it will proceed
                     return true;
                 }
                 else if (choiceSaveOrNah == "n")
                 {
+                    // Else - not
                     return false;
                 }
             } while (choiceSaveOrNah != "y" || choiceSaveOrNah != "n");
+            // This is added so the compiler will shut the f* up
             return true;
         }
 
@@ -217,59 +219,80 @@ namespace Rock_Paper_Scissors
             }
             else
             {
+                // If we skipped to enter a name, we will skip the next step also
                 return null;
             }
         }
 
         private static void SetScore()
         {
+            // If we have entered a valid name, we will print good looking score
             if (ScoreName() != null)
             {
+                // Format the output
                 string score = name + " -> " + playerScore.ToString();
+                // Configure the file
                 FileStream fs = new FileStream("score.txt", FileMode.Append);
                 StreamWriter sw = new StreamWriter(fs);
 
+                // Save the info in the file
                 sw.WriteLine(score);
 
                 sw.Close();
                 fs.Close();
             }
+            // If we have a blank name
+            // Commonly after we wanted to skip the score saving
+            // We will carry on without saving
+            // The bug caused with blank name and score looks like this: 
+            // " -> 0"
         }
 
         private static void PrintScore()
         {
+            // Setting the size of the console
             Console.SetWindowSize(35, 13);
 
+            // Controlling the number of highscores(will stop around 10)
             int count = 1;
 
             Console.WriteLine("\t   *SCOREBOARD*");
 
+            // Creating a file where we will store the points
             FileStream fs = new FileStream("score.txt", FileMode.OpenOrCreate);
             StreamReader sr = new StreamReader(fs);
 
             Console.WriteLine();
 
+            // Check if we overcapped the limit of highscores
             while (count <= 10)
             {
+                // Print the scores
                 string score = sr.ReadLine();
                 Console.WriteLine("\t   {0}", score);
+                // Increment so we can keep track of the exact number of scores
                 count++;
             }
             for (int i = count; i <= 10; i++)
             {
+                // Fill the gaps in the console so we can print a message at the bottom
                 Console.WriteLine();
             }
+            // Here we close the file operators so we dont ruin the output
             sr.Close();
             fs.Close();
 
+            // Here is the message we are going to print
             Console.Write("  [PLEASE PRESS A KEY TO PROCEED]");
             Console.ReadKey(true);
             Console.Clear();
 
+            //Return back the old appearance of the console
             Console.SetWindowSize(35, 3);
             Console.BufferHeight = Console.WindowHeight;
             Console.BufferWidth = Console.WindowWidth;
 
+            // Call the next menu -> exit or reset highscores
             ResetHighScores();
         }
 
@@ -285,68 +308,41 @@ namespace Rock_Paper_Scissors
 
                 if (ScoreBoardOrExit == "h")
                 {
+                    // Open the menu with the scores
                     PrintScore();
                 }
+                // Otherwise, switch to next menu
             } while (ScoreBoardOrExit != "h" && ScoreBoardOrExit != "x");
         }
-
-        private static void DrawScoreBoard()
-        {
-            Console.SetWindowSize(35, 13);
-
-            int count = 1;
-
-            Console.WriteLine("\t   *SCOREBOARD*");
-
-            FileStream fs = new FileStream("score.txt", FileMode.OpenOrCreate);
-            StreamReader sr = new StreamReader(fs);
-
-            Console.WriteLine();
-
-            while (count <= 10)
-            {
-                string score = sr.ReadLine();
-                Console.WriteLine("\t   {0}", score);
-                count++;
-            }
-            for (int i = count; i <= 10; i++)
-            {
-                Console.WriteLine();
-            }
-            sr.Close();
-            fs.Close();
-
-            Console.Write("  [PLEASE PRESS A KEY TO PROCEED]");
-            Console.ReadKey(true);
-            Console.Clear();
-
-            Console.SetWindowSize(35, 3);
-            Console.BufferHeight = Console.WindowHeight;
-            Console.BufferWidth = Console.WindowWidth;
-        }
-
+        
         private static void ResetHighScores()
         {
             string resOrExit;
 
             do
             {
+                // Ask the user to input his choice
                 Console.Write("Refresh [r] \nExit [x] \n> ");
                 resOrExit = Console.ReadLine().ToLower();
                 Console.Clear();
 
                 if (resOrExit == "r")
                 {
+                    // If the choice is to reset the score
+                    // the file with the points is deleted
                     File.Delete("score.txt");
 
                     do
                     {
+                        // Otherwise the program will end
+                        // So far the options ended
                         Console.Write("Exit [x] \n> ");
                         resOrExit = Console.ReadLine().ToLower();
                         Console.Clear();
                         if (resOrExit == "x")
                         {
                             break;
+                            // QUIT
                         }
                     } while (resOrExit != "x");
                 }
