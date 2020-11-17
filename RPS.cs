@@ -9,7 +9,9 @@ namespace Rock_Paper_Scissors
 {
     static class RPS
     {
+        // Keep track of the player's name
         private static string name { get; set; }
+        // Keep track of the scores
         private static int playerScore { get; set; } = 0;
         private static int cpuScore { get; set; } = 0;
 
@@ -23,10 +25,12 @@ namespace Rock_Paper_Scissors
                 playOrHelp = Console.ReadLine().ToLower();
                 Console.Clear();
 
+                // When opened get the oportunity to skip the tutorial step
                 if (playOrHelp == "p")
                 {
                     break;
                 }
+                // When chosen the menu help will open up
                 if (playOrHelp == "h")
                 {
                     Console.Write("Choose rock, paper or scissors. \n" +
