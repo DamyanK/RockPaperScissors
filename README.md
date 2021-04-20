@@ -1,5 +1,5 @@
 # RockPaperScissors
-A game of rock, paper, scissors against the CPU
+A game of rock, paper, scissors against the CPU.
 
 # License
 (c) Damyan D Kushev, PGEE
